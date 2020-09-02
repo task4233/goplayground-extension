@@ -4,7 +4,7 @@ This chrome extension formats & run Go code on website.
 ![demo.gif](./demo.gif)
 
 ## Usage
-### fmt
+### Format
 1. Select the code
 2. Press `Ctrl + Enter`
 3. Paste the code
