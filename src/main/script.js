@@ -62,53 +62,51 @@ let selectedTxt = "";
 let g = new GoPlayGround();
 
 // 選択されたときのイベント
-document.addEventListener("selectionchange", function (event) {
+document.addEventListener("selectionchange", function (e) {
     const str = window.getSelection().toString();
-    // console.log("selected:" + str);
     selectedTxt = str;
 })
 
 // キーが押されたときのイベント
-document.body.addEventListener('keydown',
-    event => {
-        if (event.key === 'Enter' && event.ctrlKey) {
+document.body.addEventListener('keydown', function (e) {
+    // Ctrl + Shift + Enter
+    // Run
+    if (event.key === 'Enter' && event.ctrlKey && event.shiftKey) {
+        g.run(selectedTxt)
+            .then(res => JSON.parse(res))
+            .then(res => {
+                const err = res.Errors;
+                if (err) {
+                    console.log(err);
+                } else {
+                    if (res.Events.length > 0) {
+                        const message = res.Events[0].Message;
+                        alert(message);
+                    }
+                }
+            }).catch(err => {
+                console.log(err);
+                alert('Failed to get value\n' + err);
+            })
+    }
 
-            // Ctrl + Shift + Enter
-            // Run
-            if (event.shiftKey) {
-                g.run(selectedTxt)
-                    .then(res => JSON.parse(res))
-                    .then(res => {
-                        const err = res.Errors;
-                        if (err) {
-                            console.log(err);
-                            alert("Error:\n" + err);
-                        } else {
-                            const message = res.Events[0].Message;
-                            alert(message);
-                        }
-                    }).catch(err => {
-                        console.log(err);
-                        alert('Failed to get value\n' + err);
-                    })
-            } else {
-                g.fmt(selectedTxt)
-                    .then(res => JSON.parse(res))
-                    .then(res => {
-                        console.log(res)
-                        const err = res.Error;
-                        if (err) {
-                            console.log(err);
-                            alert("Error:\n" + err);
-                        } else {
-                            const body = res.Body;
-                            copyToClipboard(body);
-                            // alert(body);
-                        }
-                    }).catch(err => {
-                        console.log(err);
-                        alert('Failed to get value\n' + err);
-                    })
-            }
-        }
-    });
+    // Ctrl + Enter
+    // Fmt
+    if (event.key === 'Enter' && event.ctrlKey) {
+        g.fmt(selectedTxt)
+            .then(res => JSON.parse(res))
+            .then(res => {
+                const err = res.Error;
+                if (err) {
+                    console.log(err);
+                    alert("Error:\n" + err);
+                } else {
+                    const body = res.Body;
+                    copyToClipboard(body);
+                }
+            }).catch(err => {
+                console.log(err);
+                alert('Failed to get value\n' + err);
+            })
+    }
+});
