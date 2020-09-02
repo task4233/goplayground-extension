@@ -1,4 +1,4 @@
-# GoPlayground-Helper
+# Go Playground-Helper
 This chrome extension formats & run Go code on website.
 
 ![demo.gif](./demo.gif)
