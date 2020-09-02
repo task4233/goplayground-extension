@@ -4,7 +4,7 @@
     "version": "0.0.1",
     "manifest_version": 2,
     "description": "Format & Run your selected Go code on website.",
-    "homepage_url": "https://github.com/task4233/Go-Playground-Extension",
+    "homepage_url": "https://github.com/task4233/GoPlayground-Extension",
     "content_scripts": [
         {
             "matches": ["<all_urls>"],
