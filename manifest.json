@@ -1,0 +1,14 @@
+{
+    "name": "Helper for formatting & running Go code on WebSite",
+    "short_name": "gocodehelperonwebsite",
+    "version": "0.0.1",
+    "manifest_version": 2,
+    "description": "Format & Run your selected Go code on website.",
+    "homepage_url": "https://github.com/task4233/Go-Playground-Extension",
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": [ "src/main/script.js"]
+        }
+    ]
+}
